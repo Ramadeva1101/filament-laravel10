@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->string('kode_pemeriksaan')->primary(); // Set kode_pemeriksaan sebagai primary key
             $table->string('nama_pemeriksaan', 100);
-            $table->integer('harga_pemeriksaan')->nullable();
+            $table->integer('harga_pemeriksaan')->integer();
             $table->timestamps();
         });
     }

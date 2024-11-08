@@ -16,10 +16,10 @@ return new class extends Migration
         $table->string('nama', 100); // Nama pasien
         $table->date('tanggal_lahir'); // Tanggal lahir
         $table->enum('jenis_kelamin', ['pria', 'wanita']); // Jenis kelamin
-        $table->string('alamat', 300); // Alamat
+        $table->string('alamat'); // Alamat
         $table->timestamps(); // Created at dan updated at
 
-            $table->timestamps();
+
         });
     }
 

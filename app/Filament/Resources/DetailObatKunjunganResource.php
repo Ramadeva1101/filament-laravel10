@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 use Filament\Navigation\NavigationItem;
-use App\Filament\Resources\ObatResource\Pages;
-use App\Filament\Resources\ObatResource\RelationManagers;
-use App\Models\Obat;
+use App\Filament\Resources\DetailObatKunjunganResource\Pages;
+use App\Filament\Resources\DetailObatKunjunganResource\RelationManagers;
+use App\Models\DetailObatKunjungan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ObatResource extends Resource
+class DetailObatKunjunganResource extends Resource
 {
-    protected static ?string $model = Obat::class;
+    protected static ?string $model = DetailObatKunjungan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,10 +23,7 @@ class ObatResource extends Resource
     {
         return $form
             ->schema([
-                 Forms\Components\TextInput::make('nama_obat') ->required(),
-                 Forms\Components\TextInput::make('kode_obat') ->required()->maxLength(50),
-                 Forms\Components\TextInput::make('harga')->required()     ->maxLength(100),
-
+                //
             ]);
     }
 
@@ -34,10 +31,7 @@ class ObatResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama')->label('Kode Obat'),
-                Tables\Columns\TextColumn::make('nama_obat')->label('Nama Obat'),
-                Tables\Columns\TextColumn::make('harga')->label('Harga Obat')
-
+                //
             ])
             ->filters([
                 //
@@ -62,16 +56,16 @@ class ObatResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListObats::route('/'),
-            'create' => Pages\CreateObat::route('/create'),
-            'edit' => Pages\EditObat::route('/{record}/edit'),
+            'index' => Pages\ListDetailObatKunjungans::route('/'),
+            'create' => Pages\CreateDetailObatKunjungan::route('/create'),
+            'edit' => Pages\EditDetailObatKunjungan::route('/{record}/edit'),
         ];
     }
     public static function getNavigationItems(): array
     {
-        return in_array(auth()->user()?->role, ['admin', 'dokter'])
+        return in_array(auth()->user()?->role, ['kasir'])
             ? [
-                NavigationItem::make('Obat')
+                NavigationItem::make('Detail Obat')
                     ->url(static::getUrl())
                     ->icon('heroicon-o-rectangle-stack'),
             ]

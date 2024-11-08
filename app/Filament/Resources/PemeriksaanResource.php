@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Filament\Resources;
-
+use Filament\Navigation\NavigationItem;
 use App\Filament\Resources\PemeriksaanResource\Pages;
 use App\Filament\Resources\PemeriksaanResource\RelationManagers;
 use App\Models\Pemeriksaan;
@@ -74,5 +74,15 @@ class PemeriksaanResource extends Resource
             'create' => Pages\CreatePemeriksaan::route('/create'),
             'edit' => Pages\EditPemeriksaan::route('/{record}/edit'),
         ];
+    }
+    public static function getNavigationItems(): array
+    {
+        return in_array(auth()->user()?->role, ['admin', 'dokter'])
+            ? [
+                NavigationItem::make('Pemeriksaan')
+                    ->url(static::getUrl())
+                    ->icon('heroicon-o-rectangle-stack'),
+            ]
+            : [];
     }
 }

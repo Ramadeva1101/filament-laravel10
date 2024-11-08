@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -59,12 +60,11 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
+   'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pengguna::class,
+    ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

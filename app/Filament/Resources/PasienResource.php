@@ -3,16 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PasienResource\Pages;
-use App\Filament\Resources\PasienResource\RelationManagers;
 use App\Models\Pasien;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Navigation\NavigationItem;
 class PasienResource extends Resource
 {
     protected static ?string $model = Pasien::class;
@@ -23,21 +20,19 @@ class PasienResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kode_pelanggan')
-                ->required()
-                ->maxLength(50),
+                // Hapus input untuk kode_pelanggan
                 Forms\Components\TextInput::make('nama')
                     ->required()
                     ->maxLength(100),
                 Forms\Components\DatePicker::make('tanggal_lahir')
                     ->required(),
-                Forms\Components\Select::make('Jenis_kelamin')
+                Forms\Components\Select::make('jenis_kelamin') // Pastikan konsisten dengan nama field
                     ->options([
                         'pria' => 'Pria',
                         'wanita' => 'Wanita',
                     ])
                     ->required(),
-                Forms\Components\TextInput::make('Alamat')
+                Forms\Components\TextInput::make('alamat') // Pastikan konsisten dengan nama field
                     ->maxLength(300)
                     ->required(),
             ]);
@@ -54,13 +49,10 @@ class PasienResource extends Resource
                 ->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_lahir')->label('Tanggal Lahir')
                 ->searchable(),
-                Tables\Columns\TextColumn::make('Jenis_kelamin')->label('Jenis Kelamin')
+                Tables\Columns\TextColumn::make('jenis_kelamin')->label('Jenis Kelamin') // Pastikan konsisten dengan nama field
                 ->searchable(),
-                Tables\Columns\TextColumn::make('Alamat')->label('Alamat')
+                Tables\Columns\TextColumn::make('alamat')->label('Alamat') // Pastikan konsisten dengan nama field
                 ->searchable(),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -87,5 +79,14 @@ class PasienResource extends Resource
             'create' => Pages\CreatePasien::route('/create'),
             'edit' => Pages\EditPasien::route('/{record}/edit'),
         ];
+    }   public static function getNavigationItems(): array
+    {
+        return in_array(auth()->user()?->role, ['admin', 'dokter'])
+            ? [
+                NavigationItem::make('Pasien')
+                    ->url(static::getUrl())
+                    ->icon('heroicon-o-rectangle-stack'),
+            ]
+            : [];
     }
 }
