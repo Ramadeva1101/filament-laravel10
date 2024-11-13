@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('obats', function (Blueprint $table) {
-            $table->integer('kode_obat');
+            $table->string('kode_obat',100)->unique();
             $table->string('nama_obat');
             $table->integer('harga');
             $table->timestamps();

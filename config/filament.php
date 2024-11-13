@@ -1,7 +1,11 @@
 <?php
 
 return [
-
+'resources' => [
+    'namespace' => 'App\\Filament\\Resources',
+    'path' => app_path('Filament/Resources'),
+    'register' => [],
+],
     /*
     |--------------------------------------------------------------------------
     | Broadcasting
@@ -70,5 +74,5 @@ return [
     */
 
     'livewire_loading_delay' => 'default',
-	
+
 ];

@@ -23,9 +23,7 @@ class PemeriksaanResource extends Resource
     {
         return $form
         ->schema([
-              Forms\Components\TextInput::make('kode_pemeriksaan')
-                ->label('Kode Pemeriksaan')
-                ->required(),
+
                 Forms\Components\TextInput::make('nama_pemeriksaan')
                 ->label('Nama Pemeriksaan')
                 ->required(),

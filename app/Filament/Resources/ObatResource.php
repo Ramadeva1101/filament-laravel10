@@ -21,10 +21,10 @@ class ObatResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
+        return
+         $form->schema([
                  Forms\Components\TextInput::make('nama_obat') ->required(),
-                 Forms\Components\TextInput::make('kode_obat') ->required()->maxLength(50),
+
                  Forms\Components\TextInput::make('harga')->required()     ->maxLength(100),
 
             ]);
@@ -33,8 +33,11 @@ class ObatResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('nama')->label('Kode Obat'),
+             ->columns([
+                    Tables\Columns\TextColumn::make('kode_obat')->label('Kode Obat')
+                    ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('nama_obat')->label('Nama Obat'),
                 Tables\Columns\TextColumn::make('harga')->label('Harga Obat')
 
@@ -44,12 +47,9 @@ class ObatResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteAction::make(),
             ]);
+
     }
 
     public static function getRelations(): array
