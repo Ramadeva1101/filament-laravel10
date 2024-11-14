@@ -82,8 +82,14 @@ class PasienResource extends Resource
                         ->success()
                         ->send();
                 })
-                ->successRedirectUrl(fn () => KunjunganResource::getUrl('index'))
+                ->successRedirectUrl(fn () => KunjunganResource::getUrl('index')),
+
+                Tables\Actions\DeleteAction::make()
+                ->label('Delete')
+                ->icon('heroicon-o-trash')
+                ->color('danger')
             ])
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
